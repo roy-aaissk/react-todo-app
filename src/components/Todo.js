@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddTodo from './AddTodo';
 import TodoList from "./TodoList";
 
@@ -18,7 +18,18 @@ const Todo = () => {
     },
   ];
 
+  
   const [todos, setTodos] = useState(initialState);
+  // get API
+  const baseUrl = "http://localhost:8080"
+  useEffect(() => {
+    (async () => {
+      const response =  await fetch(`${baseUrl}/v1/todo`, {method:'POST'});
+      const data = await  response.json();
+      console.log(data);
+    })()
+  },[]);
+
 
   return (
     <div>
