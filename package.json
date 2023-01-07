@@ -21,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate": "npx generate-react-cli component $npm_config_component  --type=$npm_config_dir"
   },
   "eslintConfig": {
     "extends": [
