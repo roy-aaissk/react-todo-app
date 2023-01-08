@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './MainContents.module.css';
+import TextForm from '../../Organisms/TextForm/TextForm';
+import CardList from '../../Organisms/CardList/CardList';
 
 const MainContents = () => (
   <div className={styles.MainContents}>
-    MainContents Component
+    {/* 全体的なstyleの指定widthやhigh */}
+    <TextForm />
+    <CardList />
   </div>
 );
 
