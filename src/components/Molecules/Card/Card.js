@@ -7,10 +7,10 @@ import Text from '../../Atoms/Text/Text';
 import { useTaskContext } from '../../../store/Context/TaskContext/TaskContext';
 // 渡ってきたPropsを振り分ける
 const Card = () => {
-  const { task } = useTaskContext();
+  const { state } = useTaskContext();
   return (
     <div className={styles.Card}>
-      {task.map((tasks, index) => {
+      {state.map((tasks, index) => {
         return (
           <div key={index}>
             <Title children={tasks.task} />

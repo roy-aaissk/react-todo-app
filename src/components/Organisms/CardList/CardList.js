@@ -6,11 +6,11 @@ import { useTaskContext } from '../../../store/Context/TaskContext/TaskContext';
 
 // UseContextでtaskの情報をpropsで指定する
 const CardList = () => {
-  const { task } = useTaskContext();
+  const { state } = useTaskContext();
   return (
     <div className={styles.CardList}>
       {/* sectionタグで囲む範囲 */}
-      {task.length !== 0 && <Card />}
+      {state.length !== 0 && <Card />}
     </div>
   );
 };
