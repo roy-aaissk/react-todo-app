@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useReducer, useContext } from 'react';
 
 const TaskContext = createContext();
 
@@ -22,12 +22,15 @@ export function useTaskContext() {
 }
 
 export function TaskProvider({ children }) {
-  const [task, setTask] = useState(initialState);
-
-  const value = {
-    task,
-    setTask,
+  const reducer = (state, action) => {
+    if (action === 'Delete') {
+    } else {
+    }
   };
 
-  return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <TaskContext.Provider value={{ state }}>{children}</TaskContext.Provider>
+  );
 }
