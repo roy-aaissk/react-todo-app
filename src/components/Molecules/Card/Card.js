@@ -7,7 +7,7 @@ import Text from '../../Atoms/Text/Text';
 import { useTaskContext } from '../../../store/Context/TaskContext/TaskContext';
 // 渡ってきたPropsを振り分ける
 const Card = () => {
-  const { state } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   return (
     <div className={styles.Card}>
       {state.map((tasks, index) => {
@@ -16,7 +16,13 @@ const Card = () => {
             <Title children={tasks.task} />
             <Text />
             <Button children='修正' className='edit' />
-            <Button children='削除' className='delete' />
+            <Button
+              children='削除'
+              className='delete'
+              onClick={() => {
+                dispatch({ type: 'DELETE', context: tasks.task, id: tasks.id });
+              }}
+            />
           </div>
         );
       })}
