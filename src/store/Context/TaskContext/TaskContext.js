@@ -1,4 +1,5 @@
 import { createContext, useReducer, useContext } from 'react';
+import createUuid from '../../../util';
 
 const TaskContext = createContext();
 
@@ -26,14 +27,19 @@ export function useTaskContext() {
 
 export function TaskProvider({ children }) {
   const reducer = (state, action) => {
+    let result = [];
     switch (action.type) {
       case 'DELETE':
-        let result = [];
         result = state.filter((e) => e.id !== action.id);
         console.log(result);
         // 削除するタスクをAPIで渡す
         state = result;
         return state;
+      case 'ADD':
+        return [
+          ...state,
+          { id: createUuid(), task: action.context, completed: false },
+        ];
       default:
         return;
     }
