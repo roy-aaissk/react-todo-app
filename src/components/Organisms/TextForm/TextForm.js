@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import styles from './TextForm.module.css';
 import TextField from '../../Atoms/TextField/TextField';
 import Button from '../../Atoms/Button/Button';
@@ -13,21 +12,24 @@ const TextForm = () => {
   };
   return (
     <div className={styles.TextForm}>
-      <TextField onChange={handleChange} />
+      <TextField onChange={handleChange} value={value} />
       <Button
         children='追加'
         className='add'
         onClick={() => {
           dispatch({ type: 'ADD', context: value });
+          setValue('');
         }}
       />
-      <Button children='キャンセル' className='cancel' />
+      <Button
+        children='キャンセル'
+        className='cancel'
+        onClick={() => {
+          setValue('');
+        }}
+      />
     </div>
   );
 };
-
-TextForm.propTypes = {};
-
-TextForm.defaultProps = {};
 
 export default TextForm;
