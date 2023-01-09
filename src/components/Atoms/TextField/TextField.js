@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import styles from './TextField.module.css';
 
 const TextField = (props) => {
-  const { children, className, onChange } = props;
+  const { value, className, onChange } = props;
   return (
-    <textarea className={styles[className]} onChange={onChange}>
-      {children}
-    </textarea>
+    <textarea
+      className={styles[className]}
+      onChange={onChange}
+      value={value}
+    ></textarea>
   );
 };
 
