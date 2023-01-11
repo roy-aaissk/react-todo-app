@@ -10,7 +10,14 @@ const CardList = () => {
   return (
     <div className={styles.CardList}>
       {/* sectionタグで囲む範囲 */}
-      {state.length !== 0 && <Card />}
+      {state.length !== 0 &&
+        state.map((todo, index) => {
+          return (
+            <div key={index}>
+              <Card todo={todo} />
+            </div>
+          );
+        })}
     </div>
   );
 };
