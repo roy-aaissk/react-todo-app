@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './TextForm.module.css';
-import TextField from '../../Atoms/TextField/TextField';
 import Button from '../../Atoms/Button/Button';
 import TextInput from '../../Atoms/TextInput/TextInput';
+import Title from '../../Atoms/Title/Title';
 
 const TextForm = (props) => {
   const {
     textMode,
     value,
     className,
+    textChildren,
     onChange,
     children,
     color,
@@ -21,8 +22,13 @@ const TextForm = (props) => {
   } = props;
   return (
     <div className={styles.TextForm}>
-      {textMode === 'textarea' ? (
-        <TextField onChange={onChange} value={value} className={className} />
+      {textMode === 'title' ? (
+        <Title
+          onChange={onChange}
+          value={value}
+          className={className}
+          children={textChildren}
+        />
       ) : (
         <TextInput onChange={onChange} value={value} className={className} />
       )}
