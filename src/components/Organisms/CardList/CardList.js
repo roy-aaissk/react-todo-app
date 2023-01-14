@@ -9,9 +9,15 @@ const CardList = () => {
   const [value, setValue] = useState('');
   const [inputMode, setInputMode] = useState(false);
   const handleChange = () => {};
-  const saveClick = () => {};
-  const cancelClick = () => {};
-  const fixClick = () => {};
+  const saveClick = (e) => {
+    
+  };
+  const cancelClick = (e) => {
+    setInputMode((e) => !e);
+  };
+  const fixClick = (e) => {
+    setInputMode((e) => !e);
+  };
   const deleteClick = () => {};
   // 入力Props
   const inputForm = {
@@ -36,7 +42,7 @@ const CardList = () => {
     onChange: '',
     children: '修正',
     color: 'fix',
-    onClick: (e) => fixClick(e),
+    onClick: fixClick,
     type: '',
     children2: '削除',
     color2: 'delete',
@@ -49,13 +55,13 @@ const CardList = () => {
       {state.length !== 0 &&
         state.map((todo, index) => {
           return (
-            <form key={index}>
+            <div key={index}>
               {inputMode ? (
                 <TextForm {...inputForm} />
               ) : (
                 <TextForm {...textForm} textChildren={todo.task} />
               )}
-            </form>
+            </div>
           );
         })}
     </div>
