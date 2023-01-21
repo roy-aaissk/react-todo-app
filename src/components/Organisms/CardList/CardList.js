@@ -1,24 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './CardList.module.css';
 import { useTaskContext } from '../../../store/Context/TaskContext/TaskContext';
 import TextForm from '../../Molecules/TextForm/TextForm';
 
 // UseContextでtaskの情報をpropsで指定する
 const CardList = () => {
-  const { state } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const [value, setValue] = useState('');
-  const [inputMode, setInputMode] = useState(false);
-  const handleChange = () => {};
-  const saveClick = (e) => {
-    
+  const handleChange = (e) => {
+    setValue(e.target.value);
   };
-  const cancelClick = (e) => {
-    setInputMode((e) => !e);
-  };
-  const fixClick = (e) => {
-    setInputMode((e) => !e);
-  };
-  const deleteClick = () => {};
   // 入力Props
   const inputForm = {
     textMode: '',
@@ -27,11 +18,9 @@ const CardList = () => {
     onChange: handleChange,
     children: '保存',
     color: 'save',
-    onClick: saveClick,
     type: '',
     children2: 'キャンセル',
     color2: 'edit',
-    onClick2: cancelClick,
     type2: 'button',
   };
   // テキストProps
@@ -42,11 +31,9 @@ const CardList = () => {
     onChange: '',
     children: '修正',
     color: 'fix',
-    onClick: fixClick,
     type: '',
     children2: '削除',
     color2: 'delete',
-    onClick2: (e) => deleteClick(e),
     type2: '',
   };
   return (
@@ -56,10 +43,43 @@ const CardList = () => {
         state.map((todo, index) => {
           return (
             <div key={index}>
-              {inputMode ? (
-                <TextForm {...inputForm} />
+              {todo.isEdit ? (
+                <TextForm
+                  {...inputForm}
+                  onClick={(e) => {
+                    dispatch({
+                      type: 'UPDATE',
+                      context: value,
+                      id: parseInt(todo.id),
+                    });
+                  }}
+                  onClick2={() => {
+                    dispatch({
+                      type: 'CANCEL',
+                      context: todo.task,
+                      id: parseInt(todo.id),
+                    });
+                  }}
+                />
               ) : (
-                <TextForm {...textForm} textChildren={todo.task} />
+                <TextForm
+                  {...textForm}
+                  textChildren={todo.task}
+                  onClick={() => {
+                    dispatch({
+                      type: 'EDIT',
+                      context: todo.task,
+                      id: parseInt(todo.id),
+                    });
+                  }}
+                  onClick2={() => {
+                    dispatch({
+                      type: 'DELETE',
+                      context: todo.task,
+                      id: todo.id,
+                    });
+                  }}
+                />
               )}
             </div>
           );
