@@ -8,16 +8,19 @@ const initialState = [
     id: 1,
     task: 'Learn vue.js',
     isCompleted: false,
+    isEdit: false,
   },
   {
     id: 2,
     task: 'Learn React Hook',
     isCompleted: false,
+    isEdit: false,
   },
   {
     id: 3,
     task: 'Learn Gatsby.js',
     isCompleted: false,
+    isEdit: false,
   },
 ];
 
@@ -40,6 +43,28 @@ export function TaskProvider({ children }) {
           ...state,
           { id: createUuid(), task: action.context, completed: false },
         ];
+      case 'UPDATE':
+        result = state
+          .filter((e) => e.id === action.id)
+          .map((e) => {
+            e.isEdit = false;
+            e.task = action.context;
+          });
+        return [...state];
+      case 'EDIT':
+        result = state
+          .filter((e) => e.id === action.id)
+          .map((e) => {
+            e.isEdit = true;
+          });
+        return [...state];
+      case 'CANCEL':
+        result = state
+          .filter((e) => e.id === action.id)
+          .map((e) => {
+            e.isEdit = false;
+          });
+        return [...state];
       default:
         return;
     }
