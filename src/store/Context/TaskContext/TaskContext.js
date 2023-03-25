@@ -46,7 +46,7 @@ export function TaskProvider({ children }) {
       case 'UPDATE':
         result = state
           .filter((e) => e.id === action.id)
-          .map((e) => {
+          .foreach((e) => {
             e.isEdit = false;
             e.task = action.context;
           });
@@ -54,14 +54,14 @@ export function TaskProvider({ children }) {
       case 'EDIT':
         result = state
           .filter((e) => e.id === action.id)
-          .map((e) => {
+          .foreach((e) => {
             e.isEdit = true;
           });
         return [...state];
       case 'CANCEL':
         result = state
           .filter((e) => e.id === action.id)
-          .map((e) => {
+          .foreach((e) => {
             e.isEdit = false;
           });
         return [...state];
