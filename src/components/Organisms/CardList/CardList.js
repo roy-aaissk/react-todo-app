@@ -7,9 +7,24 @@ import TextForm from '../../Molecules/TextForm/TextForm';
 const CardList = () => {
   const { state, dispatch } = useTaskContext();
   const [value, setValue] = useState('');
+  const [todolist, setTodolist] = useState([]);
   const handleChange = (e) => {
     setValue(e.target.value);
   };
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('http://localhost:8000/todo');
+      const data = await response.json();
+      setTodolist(data);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (todolist) {
+      dispatch({ type: 'FETCH_SUCCESS', context: todolist });
+    }
+  }, [todolist, dispatch]);
   // 入力Props
   const inputForm = {
     textMode: '',
