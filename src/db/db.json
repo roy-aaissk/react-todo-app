@@ -1,14 +1,22 @@
 {
   "todo": [
     {
-      "id": "1fkejklaf",
-      "title": "reading book",
-      "content": "reading"
+      "id": 1,
+      "task": "Learn vue.js",
+      "isCompleted": false,
+      "isEdit": false
     },
     {
-      "id": "2kjjflejlafe",
-      "title": "reading book2",
-      "content": "reading2"
+      "id": 2,
+      "task": "Learn React Hook",
+      "isCompleted": false,
+      "isEdit": false
+    },
+    {
+      "id": 3,
+      "task": "Learn Gatsby.js",
+      "isCompleted": false,
+      "isEdit": false
     }
   ]
 }
