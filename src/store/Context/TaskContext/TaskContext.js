@@ -3,26 +3,7 @@ import createUuid from '../../../util';
 
 const TaskContext = createContext();
 
-const initialState = [
-  {
-    id: 1,
-    task: 'Learn vue.js',
-    isCompleted: false,
-    isEdit: false,
-  },
-  {
-    id: 2,
-    task: 'Learn React Hook',
-    isCompleted: false,
-    isEdit: false,
-  },
-  {
-    id: 3,
-    task: 'Learn Gatsby.js',
-    isCompleted: false,
-    isEdit: false,
-  },
-];
+const initialState = [];
 
 export function useTaskContext() {
   return useContext(TaskContext);
@@ -32,6 +13,8 @@ export function TaskProvider({ children }) {
   const reducer = (state, action) => {
     let result = [];
     switch (action.type) {
+      case 'FETCH_SUCCESS':
+        return action.context;
       case 'DELETE':
         result = state.filter((e) => e.id !== action.id);
         console.log(result);
@@ -46,7 +29,7 @@ export function TaskProvider({ children }) {
       case 'UPDATE':
         result = state
           .filter((e) => e.id === action.id)
-          .foreach((e) => {
+          .forEach((e) => {
             e.isEdit = false;
             e.task = action.context;
           });
@@ -54,16 +37,13 @@ export function TaskProvider({ children }) {
       case 'EDIT':
         result = state
           .filter((e) => e.id === action.id)
-          .foreach((e) => {
-            e.isEdit = true;
-          });
+          .forEach((e) => (e.isEdit = true));
+
         return [...state];
       case 'CANCEL':
         result = state
           .filter((e) => e.id === action.id)
-          .foreach((e) => {
-            e.isEdit = false;
-          });
+          .forEach((e) => (e.isEdit = false));
         return [...state];
       default:
         return;
