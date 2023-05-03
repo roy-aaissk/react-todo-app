@@ -27,12 +27,18 @@ export function TaskProvider({ children }) {
           { id: createUuid(), task: action.context, completed: false },
         ];
       case 'UPDATE':
-        result = state
-          .filter((e) => e.id === action.id)
-          .forEach((e) => {
-            e.isEdit = false;
-            e.task = action.context;
-          });
+        try {
+          state
+            .filter((e) => e.id === action.id)
+            .forEach((e) => {
+              e.isEdit = false;
+              e.task = action.context;
+            });
+          result = state.filter((e) => e.id === action.id)[0];
+          put(result);
+        } catch (error) {
+          throw new Error('値が更新できません。再度お試し下さい');
+        }
         return [...state];
       case 'EDIT':
         result = state
@@ -57,4 +63,23 @@ export function TaskProvider({ children }) {
       {children}
     </TaskContext.Provider>
   );
+}
+
+async function put(body) {
+  const parameter = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  };
+
+  const result = await fetch(
+    `http://localhost:8000/todo/${body.id}`,
+    parameter
+  ).then((response) => {
+    return response.json();
+  });
+
+  console.log(result);
 }
