@@ -61,7 +61,7 @@ const CardList = () => {
               {todo.isEdit ? (
                 <TextForm
                   {...inputForm}
-                  onClick={(e) => {
+                  onClick={() => {
                     dispatch({
                       type: 'UPDATE',
                       context: value,
