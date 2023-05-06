@@ -8,6 +8,7 @@ const CardList = () => {
   const { state, dispatch } = useTaskContext();
   const [value, setValue] = useState('');
   const [todolist, setTodolist] = useState([]);
+  const [editStates, setEditStates] = useState([]);
   const handleChange = (e) => {
     setValue(e.target.value);
   };
@@ -16,6 +17,7 @@ const CardList = () => {
       const response = await fetch('http://localhost:8000/todo');
       const data = await response.json();
       setTodolist(data);
+      setEditStates(data.map(() => false));
     }
     fetchData();
   }, []);
@@ -58,7 +60,7 @@ const CardList = () => {
         state.map((todo, index) => {
           return (
             <div key={index}>
-              {todo.isEdit ? (
+              {editStates[index] ? (
                 <TextForm
                   {...inputForm}
                   onClick={() => {
@@ -67,12 +69,22 @@ const CardList = () => {
                       context: value,
                       id: parseInt(todo.id),
                     });
+                    setEditStates((prevStates) => {
+                      const newStates = [...prevStates];
+                      newStates[index] = false; // 編集終了時にisEditをfalseに設定
+                      return newStates;
+                    });
                   }}
                   onClick2={() => {
                     dispatch({
                       type: 'CANCEL',
                       context: todo.task,
                       id: parseInt(todo.id),
+                    });
+                    setEditStates((prevStates) => {
+                      const newStates = [...prevStates];
+                      newStates[index] = false; // キャンセル時にisEditをfalseに設定
+                      return newStates;
                     });
                   }}
                 />
@@ -86,12 +98,23 @@ const CardList = () => {
                       context: todo.task,
                       id: parseInt(todo.id),
                     });
+                    setEditStates((prevStates) => {
+                      const newStates = [...prevStates];
+                      newStates[index] = true; // 編集開始時にisEditをtrueに設定
+                      return newStates;
+                    });
                   }}
                   onClick2={() => {
                     dispatch({
                       type: 'DELETE',
                       context: todo.task,
                       id: todo.id,
+                    });
+                    // TODO: 削除時に値が特定できない場合も処理がstateの更新がされてしまうので対策が必要
+                    setEditStates((prevStates) => {
+                      const newStates = [...prevStates];
+                      newStates.splice(index, 1); // 削除時に該当する値を削除
+                      return newStates;
                     });
                   }}
                 />

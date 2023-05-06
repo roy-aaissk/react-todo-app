@@ -17,7 +17,6 @@ export function TaskProvider({ children }) {
         return action.context;
       case 'DELETE':
         result = state.filter((e) => e.id !== action.id);
-        console.log(result);
         // 削除するタスクをAPIで渡す
         state = result;
         return state;
@@ -74,12 +73,9 @@ async function put(body) {
     body: JSON.stringify(body),
   };
 
-  const result = await fetch(
-    `http://localhost:8000/todo/${body.id}`,
-    parameter
-  ).then((response) => {
-    return response.json();
-  });
-
-  console.log(result);
+  await fetch(`http://localhost:8000/todo/${body.id}`, parameter).then(
+    (response) => {
+      return response.json();
+    }
+  );
 }
