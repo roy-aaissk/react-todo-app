@@ -34,7 +34,8 @@
     "eject": "react-scripts eject",
     "generate": "npx generate-react-cli component $npm_config_component  --type=$npm_config_dir",
     "json-server": "json-server --watch src/db/db.json -p 8000",
-    "format": "prettier --write src/**/*.{js,jsx,tsx}"
+    "format": "prettier --write src/**/*.{js,jsx,tsx}",
+    "eslint": "npx eslint src/**/*.js "
   },
   "browserslist": {
     "production": [
