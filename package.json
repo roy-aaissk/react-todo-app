@@ -15,7 +15,15 @@
     "sourcemap-codec": "^1.4.8"
   },
   "devDependencies": {
+    "eslint": "^8.40.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "json-server": "^0.17.3",
+    "prettier": "2.8.8",
     "react-scripts": "^5.0.1",
     "web-vitals": "^3.3.1"
   },
@@ -25,13 +33,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "generate": "npx generate-react-cli component $npm_config_component  --type=$npm_config_dir",
-    "json-server": "json-server --watch src/db/db.json -p 8000"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "json-server": "json-server --watch src/db/db.json -p 8000",
+    "format": "prettier --write src/**/*.{js,jsx,tsx}",
+    "eslint": "npx eslint src/**/*.js "
   },
   "browserslist": {
     "production": [
